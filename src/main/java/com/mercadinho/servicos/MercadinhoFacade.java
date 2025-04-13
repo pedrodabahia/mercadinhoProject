@@ -2,32 +2,33 @@ package com.mercadinho.service;
 
 import com.mercadinho.model.Produto;
 import com.mercadinho.repository.ProdutoRepository;
+import com.mercadinho.repository.vendaRepository;
 
 public class MercadinhoFacade {
     private ProdutoRepository produtoRepo;
+    private vendaRepository vendaRepo;
 
     public MercadinhoFacade() {
         this.produtoRepo = new ProdutoRepository();
+        this.vendaRepo = new vendaRepository();
     }
 
-    public void cadastrarProduto(String nome, double preco, int quantidade) {
+    // Método para cadastrar produtos
+    public void cadastrarProduto(String nome, float preco, int quantidade) {
         Produto produto = new Produto(nome, preco, quantidade);
-        produtoRepo.salvar(produto);
+        produtoRepo.cadastrarProduto(produto);
     }
 
-    public boolean venderProduto(String nome, int quantidade) {
-        Produto produto = produtoRepo.buscarPorNome(nome);
-        if (produto != null && produto.getQuantidade() >= quantidade) {
-            produto.setQuantidade(produto.getQuantidade() - quantidade);
-            produtoRepo.atualizar(produto);
-            return true;
-        }
-        return false;
+    // Método para realizar venda
+    public void venderProduto(String nomeProduto, int quantidade) {
+        vendaRepo.vender(nomeProduto, quantidade);
     }
 
+    // Método para listar produtos
     public void listarProdutos() {
-        for (Produto p : produtoRepo.listarTodos()) {
-            System.out.println(p);
-        }
+        produtoRepo.listarProdutos();
     }
+
+    // Outros métodos que são necessários para o funcionamento do mercadinho
+    // ...
 }
