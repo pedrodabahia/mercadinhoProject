@@ -1,61 +1,79 @@
 package com.mercadinho.app.mercadinho_project;
 
-
-import com.mercadinho.repository.ProdutoRepository;
-import com.mercadinho.repository.vendaRepository;
+import com.mercadinho.service.MercadinhoFacade;
 import java.util.Scanner;
-import com.mercadinho.servicos.*;
 
-public class menu {
-	ProdutoRepository produtos = new ProdutoRepository();
-	vendaRepository vendas = new vendaRepository();
-	lista listagem = new lista();
-	vendaRelatorio relatvendas = new vendaRelatorio();
-	excluirProduto excluindo = new excluirProduto();
-	
-	public int visor(){
-    	Scanner scanner = new Scanner(System.in);
-    	
-    	System.out.println(
-    	"\n--------------------------------------\n"
-    	+ "Seja bem vindo ao menu do mercadinho!! \n"+
-    	"SELECIONE UMA OPERAÇÃO: \n"+
-    	"----------------------- \n"+
-    	"[1] Adicionar produto \n"+
-    	"[2] Listar produtos \n"+
-    	"[3] Excluir produto \n"+
-    	"[4] Realizar venda \n"+
-    	"[5] Ver detalhes de Uma venda \n"+
-    	"[0] - Sair \n"
-    	+ "--------------------------------------");
-    	
-    	int opcao = scanner.nextInt();
-    	return opcao;
-    	
-	}
-	
-	public boolean escolha(int escolha) {
-		switch(escolha) {
-		case 1:
-			produtos.cadastrarProduto();
-			return false;
-		case 2: 
-			listagem.listagem();
-			return false;
-		case 3:
-			excluindo.excluir();
-			return false;
-		case 4:
-			vendas.vender();
-			return false;
-		case 5: 
-			relatvendas.relatorio();
-			return false;
-		case 0:
-			return true;
-			default:
-				return false;
-		}
-	}
-	
+public class Menu {
+
+    private MercadinhoFacade mercadinhoFacade;
+    private Scanner scanner;
+
+    public Menu() {
+        // Instanciando a fachada, que vai controlar as operações do mercadinho
+        this.mercadinhoFacade = new MercadinhoFacade();
+        this.scanner = new Scanner(System.in);
+    }
+
+    public void exibir() {
+        int opcao;
+        
+        // Exibe o menu inicial
+        do {
+            System.out.println("\n--- MENU MERCADINHO ---");
+            System.out.println("1. Cadastrar Produto");
+            System.out.println("2. Vender Produto");
+            System.out.println("3. Listar Produtos");
+            System.out.println("4. Sair");
+            System.out.print("Escolha uma opção: ");
+            
+            opcao = scanner.nextInt();
+
+            switch (opcao) {
+                case 1:
+                    cadastrarProduto();
+                    break;
+                case 2:
+                    venderProduto();
+                    break;
+                case 3:
+                    listarProdutos();
+                    break;
+                case 4:
+                    System.out.println("Saindo...");
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
+            }
+        } while (opcao != 4);  // O menu vai continuar até a opção 4 (Sair)
+    }
+
+    // Método para cadastrar produto
+    private void cadastrarProduto() {
+        System.out.print("Nome do Produto: ");
+        String nome = scanner.next();
+        System.out.print("Preço do Produto: ");
+        float preco = scanner.nextFloat();
+        System.out.print("Quantidade do Produto: ");
+        int quantidade = scanner.nextInt();
+        
+        // Chama o método da fachada para cadastrar o produto
+        mercadinhoFacade.cadastrarProduto(nome, preco, quantidade);
+    }
+
+    // Método para vender produto
+    private void venderProduto() {
+        System.out.print("Nome do Produto: ");
+        String nomeProduto = scanner.next();
+        System.out.print("Quantidade a ser vendida: ");
+        int quantidade = scanner.nextInt();
+
+        // Chama o método da fachada para realizar a venda
+        mercadinhoFacade.venderProduto(nomeProduto, quantidade);
+    }
+
+    // Método para listar produtos
+    private void listarProdutos() {
+        // Chama o método da fachada para listar os produtos
+        mercadinhoFacade.listarProdutos();
+    }
 }
