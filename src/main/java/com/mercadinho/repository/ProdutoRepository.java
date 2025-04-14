@@ -1,19 +1,13 @@
 package com.mercadinho.repository;
 
-import com.mercadinho.repository.*;
 import java.util.Scanner;
 
 public class ProdutoRepository {
+    public void cadastrarProduto() {
+        // Cria um objeto da classe utilitária que lida com arquivos JSON
+        JsonUtil utilidade = new JsonUtil();
 
-
-public void cadastrarProduto() {
-		JsonUtil utilidade = new JsonUtil();
-		
-		utilidade.cadastrarProduto(null);
-		
-		
-	
-	
-}
-
+        // Chama o método de cadastro de produto da classe JsonUtil
+        utilidade.cadastrarProduto(null);
+    }
 }

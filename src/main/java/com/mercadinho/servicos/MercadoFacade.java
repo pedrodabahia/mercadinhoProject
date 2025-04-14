@@ -15,6 +15,14 @@ public class MercadoFacade {
 		vendaRelatorio relatvendas = new vendaRelatorio();
 		excluirProduto excluindo = new excluirProduto();
 		
+                public void menu(){
+                boolean val = false;
+    	
+                while(val == false) {
+                int opc = menuFacade();
+                val = escolhaFacade(opc);    	}    	
+                }
+                
 		public int menuFacade(){
 	    	Scanner scanner = new Scanner(System.in);
 	    	

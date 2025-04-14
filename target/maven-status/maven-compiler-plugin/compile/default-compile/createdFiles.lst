@@ -1,0 +1,5 @@
+com\mercadinho\App.class
+ConexaoBD.class
+com\mercadinho\servicos\MercadoFacade.class
+TesteBanco.class
+repository\DatabaseConfig.class
